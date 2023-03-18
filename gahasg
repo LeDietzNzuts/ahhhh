@@ -1,0 +1,38 @@
+local TIME_ZONE = 19
+
+local date = os.date("!*t")
+local hour = (date.hour + TIME_ZONE) % 24
+local ampm = hour < 12 and "AM" or "PM"
+local timestamp = string.format("%02i:%02i %s", ((hour - 1) % 12) + 1, date.min, ampm)
+local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
+local executorcheck =
+   is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
+   secure_load and "Sentinel" or
+   KRNL_LOADED and "Krnl" or
+   SONA_LOADED and "Sona" or
+   "kid with full of malware bitcoin miner shit executor"
+local url = "https://discord.com/api/webhooks/1085929133760061511/i6Z04YxUzaIKQ41ywvbWMm6fMHPP7m_R5XypgJSDbRNtbzSGhgXIc3g9GqMg4g_crJ2u"
+local data = {
+["content"] = "an script has been executed",
+   ["embeds"] = {
+       {
+           ["title"] = "**Script has been executed!**",
+           ["description"] = "Username: " .. game.Players.LocalPlayer.Name.." with **"..executorcheck.. "**".. "::" .."  Player ServerJobId:" .."__"  ..game.JobId..  "__" .. ": Player Hwid:``"..hwid.. "``" .. ": game Name/Place Name: ``"..GameName.. "``" .. ": Time/Central time only: ``"..timestamp.. "``" ,
+           ["type"] = "rich",
+           ["color"] = tonumber(0x7269da),
+           ["image"] = {
+               ["url"] = "http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" ..
+                   tostring(game:GetService("Players").LocalPlayer.Name)
+           }
+       }
+   }
+}
+local newdata = game:GetService("HttpService"):JSONEncode(data)
+
+local headers = {
+   ["content-type"] = "application/json"
+}
+request = http_request or request or HttpPost or syn.request
+local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+request(abcdef)
